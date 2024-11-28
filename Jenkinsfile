@@ -1,28 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:21-alpine'
-        }
-    }
-    options {
-        timeout(time: 1, unit: "HOURS")
+    agent any 
+
+    parameters {
+        string(name: 'NAME', defautValue: 'M. Jenkins', description: 'Qui estr ce ?')
+        text(name: 'TEXT', defautValue: 'un text', description: 'une description')
+        booleanParam(name: 'TOGGLE', defautValue: true, description: 'true ou false')
+        choice(name: 'CHOICE', defautValue: ['un', 'deux', 'trois'], description: 'liste')
+        password(name: 'TEXPASSWORDT', defautValue: 'un mot de passe')
     }
     stages {
-        stage('build') {
-            options {
-                timestamps()
-            }
+        stage ('build') {
             steps {
-                sh 'npm -v'
+                echo "NAME: ${NAME }"
+                echo "TEXT: ${TEXT }"
+                echo "TOGGLE: ${TOGGLE }"
+                echo "CHOICE: ${CHOICE }"
+                echo "TEXPASSWORDT: ${TEXPASSWORDT }"
             }
-        }
-    }
-    post {
-        always {
-            echo 'always !'
-        }
-        success {
-            echo 'success !'
         }
     }
 }
