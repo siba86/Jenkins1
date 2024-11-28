@@ -2,20 +2,22 @@ pipeline {
     agent any 
 
     parameters {
-        string(name: 'NAME', defautValue: 'M. Jenkins', description: 'Qui estr ce ?')
-        text(name: 'TEXT', defautValue: 'un text', description: 'une description')
-        booleanParam(name: 'TOGGLE', defautValue: true, description: 'true ou false')
-        choice(name: 'CHOICE', defautValue: ['un', 'deux', 'trois'], description: 'liste')
-        password(name: 'TEXPASSWORDT', defautValue: 'un mot de passe')
+        string(name: 'NAME', defaultValue: 'M. Jenkins', description: 'Qui est-ce ?')
+        text(name: 'TEXT', defaultValue: 'Un texte', description: 'Une description')
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'True ou False')
+        choice(name: 'CHOICE', choices: ['un', 'deux', 'trois'], description: 'Liste de choix')
+        password(name: 'TEXPASSWORDT', defaultValue: 'un mot de passe')
     }
     stages {
-        stage ('build') {
+        stage('build') {
             steps {
-                echo "NAME: ${NAME }"
-                echo "TEXT: ${TEXT }"
-                echo "TOGGLE: ${TOGGLE }"
-                echo "CHOICE: ${CHOICE }"
-                echo "TEXPASSWORDT: ${TEXPASSWORDT }"
+                script {
+                    echo "NAME: ${params.NAME}"
+                    echo "TEXT: ${params.TEXT}"
+                    echo "TOGGLE: ${params.TOGGLE}"
+                    echo "CHOICE: ${params.CHOICE}"
+                    echo "TEXPASSWORDT: ${params.TEXPASSWORDT}"
+                }
             }
         }
     }
