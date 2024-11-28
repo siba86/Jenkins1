@@ -10,7 +10,7 @@ pipeline{
     }
 
     stages {
-        stage('buil') {
+        stage('build') {
             options {
                 timestamps()
             }
