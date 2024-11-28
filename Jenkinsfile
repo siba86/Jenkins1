@@ -5,9 +5,15 @@ pipeline{
         }
 
     }
+    options {
+        timeout(time: 1, unit: "HOURS")
+    }
 
     stages {
         stage('buil') {
+            options {
+                timestamps()
+            }
             steps {
                sh 'npm -v'
             }
