@@ -1,8 +1,11 @@
 pipeline{
-    agent any 
-    docker {
-        image 'node:21-alpine'
+    agent {
+        docker {
+            image 'node:21-alpine'
+        }
+
     }
+    
 
     stages {
         stage('buil') {
@@ -10,6 +13,7 @@ pipeline{
                sh 'npm -v'
             }
         }
+    }
         post {
             always {
                 echo 'always !'
@@ -21,5 +25,5 @@ pipeline{
 
         }
 
-    }
+    
 }
