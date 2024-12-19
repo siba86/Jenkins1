@@ -1,12 +1,12 @@
 pipeline {
-        agent any 
+    agent any 
 
-        stages {
-            stage('build and test') {
-                matrix {
-                    axes {
-                        axis {
-                        name 'PLATEFORM'
+    stages {
+        stage('Build and Test') {
+            matrix {
+                axes {
+                    axis {
+                        name 'PLATFORM'
                         values 'linux', 'macos', 'windows'
                     }
                     axis {
@@ -15,21 +15,23 @@ pipeline {
                     }
                 }
                 stages {
-                    stage('build') {
-                        echo "construire pour ${PLATEFORM} - ${BROWSER}"
+                    stage('Build') {
+                        steps {
+                            echo "Construire pour ${PLATFORM} - ${BROWSER}"
+                        }
                     }
-                }
-                stages {
-                    stage('test') {
-                        echo "construire pour ${PLATEFORM} - ${BROWSER}"
+                    stage('Test') {
+                        steps {
+                            echo "Tester pour ${PLATFORM} - ${BROWSER}"
+                        }
                     }
                 }
             }
         }
 
-        stage('deployement production') {
+        stage('Deployment to Production') {
             steps {
-                echo 'deploy !'
+                echo 'Déploiement en production !'
             }
         }
     }
