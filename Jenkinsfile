@@ -1,21 +1,24 @@
 pipeline {
-    agent any 
+        stages('build') {
+            failFast true 
+            parallel {
+                stage('build frontend') {
+                    steps {
+                        echo 'build frontend'
+                    }
+                }
 
-    stages {
-        stage('build') {
-            steps {
-                echo 'build'
+                stage('build backend') {
+                    steps {
+                        echo 'build backend'
+                    }
+                }
             }
-        }
+    }
 
-        stage ('deployment production') {
-            when {
-                branch 'main'
-            }
-        
-            steps {
-                echo 'deploy'
-            }
+    stage('deployment production') {
+        steps {
+            echo 'deploy'
         }
     }
 }
