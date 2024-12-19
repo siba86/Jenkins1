@@ -1,24 +1,36 @@
 pipeline {
-        stages('build') {
-            failFast true 
-            parallel {
-                stage('build frontend') {
-                    steps {
-                        echo 'build frontend'
+        agent any 
+
+        stages {
+            stage('build and test') {
+                matrix {
+                    axes {
+                        axis {
+                        name 'PLATEFORM'
+                        values 'linux', 'macos', 'windows'
+                    }
+                    axis {
+                        name 'BROWSER'
+                        values 'firefox', 'chrome', 'safari'
                     }
                 }
-
-                stage('build backend') {
-                    steps {
-                        echo 'build backend'
+                stages {
+                    stage('build') {
+                        echo "construire pour ${PLATEFORM} - ${BROWSER}"
+                    }
+                }
+                stages {
+                    stage('test') {
+                        echo "construire pour ${PLATEFORM} - ${BROWSER}"
                     }
                 }
             }
-    }
+        }
 
-    stage('deployment production') {
-        steps {
-            echo 'deploy'
+        stage('deployement production') {
+            steps {
+                echo 'deploy !'
+            }
         }
     }
 }
