@@ -3,10 +3,17 @@ pipeline {
     agent any
 
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'echo hello > world.txt' // Crée un fichier texte avec "hello" comme contenu
-                archiveArtifacts artifacts: '*.txt' // Archive les fichiers texte créés
+                // Commandes pour construire l'application, par exemple avec Maven
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                // Archivage des fichiers .jar ou .war générés dans le dossier 'target'
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
             }
         }
     }
